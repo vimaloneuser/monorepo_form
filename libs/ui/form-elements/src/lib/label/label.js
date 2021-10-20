@@ -1,8 +1,13 @@
-import './label.module.scss';
+import './Label.module.scss';
 export function Label(props) {
   return (
     <div>
-      <h1>Welcome to Label!</h1>
+      <label
+        className={props.className}
+        for={props.for}
+        id={props.id}>
+        {props.value}
+      </label>
     </div>
   );
 }

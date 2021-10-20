@@ -1,8 +1,13 @@
-import './button.module.scss';
+import './Button.module.scss';
 export function Button(props) {
   return (
     <div>
-      <h1>Welcome to Button!</h1>
+      <input
+        className={props.className}
+        id={props.id}
+        type="submit"
+        value={props.value}
+      />
     </div>
   );
 }

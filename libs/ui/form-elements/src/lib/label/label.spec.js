@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Label from './label';
+import Label from './Label';
 describe('Label', () => {
   it('should render successfully', () => {
     const { baseElement } = render(<Label />);
