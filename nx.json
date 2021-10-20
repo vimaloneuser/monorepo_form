@@ -1,0 +1,57 @@
+{
+  "npmScope": "edutest",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e",
+          "build-storybook"
+        ]
+      }
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "projects": {
+    "app-client-mgmt": {
+      "tags": ["scope:feature"]
+    },
+    "cbt-core": {
+      "tags": ["scope:app"]
+    },
+    "cbt-core-e2e": {
+      "tags": [],
+      "implicitDependencies": ["cbt-core"]
+    },
+    "ui-form-elements": {
+      "tags": ["scope:shared"]
+    },
+    "ui-form-elements-e2e": {
+      "tags": [],
+      "implicitDependencies": ["ui-form-elements"]
+    },
+    "ui-styles": {
+      "tags": ["scope:shared"]
+    }
+  }
+}

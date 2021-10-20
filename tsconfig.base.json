@@ -1,0 +1,24 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@edutest/app/client-mgmt": ["libs/app/client-mgmt/src/index.js"],
+      "@edutest/ui-styles": ["libs/ui/styles/src/index.js"],
+      "@edutest/ui/form-elements": ["libs/ui/form-elements/src/index.js"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

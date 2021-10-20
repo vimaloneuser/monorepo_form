@@ -1,0 +1,251 @@
+{
+  "version": 2,
+  "projects": {
+    "app-client-mgmt": {
+      "root": "libs/app/client-mgmt",
+      "sourceRoot": "libs/app/client-mgmt/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/app/client-mgmt/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/app/client-mgmt"],
+          "options": {
+            "jestConfig": "libs/app/client-mgmt/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "cbt-core": {
+      "root": "apps/cbt-core",
+      "sourceRoot": "apps/cbt-core/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/cbt-core",
+            "index": "apps/cbt-core/src/index.html",
+            "main": "apps/cbt-core/src/main.js",
+            "polyfills": "apps/cbt-core/src/polyfills.js",
+            "tsConfig": "apps/cbt-core/tsconfig.app.json",
+            "assets": [
+              "apps/cbt-core/src/favicon.ico",
+              "apps/cbt-core/src/assets"
+            ],
+            "styles": ["apps/cbt-core/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/cbt-core/src/environments/environment.js",
+                  "with": "apps/cbt-core/src/environments/environment.prod.js"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "cbt-core:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "cbt-core:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/cbt-core/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/cbt-core"],
+          "options": {
+            "jestConfig": "apps/cbt-core/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "cbt-core-e2e": {
+      "root": "apps/cbt-core-e2e",
+      "sourceRoot": "apps/cbt-core-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/cbt-core-e2e/cypress.json",
+            "devServerTarget": "cbt-core:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "cbt-core:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/cbt-core-e2e/**/*.js"]
+          }
+        }
+      }
+    },
+    "ui-form-elements": {
+      "root": "libs/ui/form-elements",
+      "sourceRoot": "libs/ui/form-elements/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/ui/form-elements/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui/form-elements"],
+          "options": {
+            "jestConfig": "libs/ui/form-elements/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "executor": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/ui/form-elements/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "executor": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/ui-form-elements",
+            "config": {
+              "configFolder": "libs/ui/form-elements/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "ui-form-elements-e2e": {
+      "root": "apps/ui-form-elements-e2e",
+      "sourceRoot": "apps/ui-form-elements-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ui-form-elements-e2e/cypress.json",
+            "devServerTarget": "ui-form-elements:storybook"
+          },
+          "configurations": {
+            "ci": {
+              "devServerTarget": "ui-form-elements:storybook:ci"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/ui-form-elements-e2e/**/*.js"]
+          }
+        }
+      }
+    },
+    "ui-styles": {
+      "root": "libs/ui/styles",
+      "sourceRoot": "libs/ui/styles/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/ui/styles/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui/styles"],
+          "options": {
+            "jestConfig": "libs/ui/styles/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "cbt-core"
+}
