@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
 // Slice
 const initialState = {
     centers: []
@@ -7,15 +8,15 @@ const initialState = {
 
 export const saveCenterDataThunk = createAsyncThunk(
     'centers/saveCenterDataThunk',
-    async (val) => {
+    async ({ values, cb }) => {
         const response = await fetch('http://localhost:3000/centers', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(val),
+            body: JSON.stringify(values),
         });
-        return response.json()
+        return { result: response.json(), cb }
     }
 )
 
@@ -27,16 +28,18 @@ const centerSlice = createSlice({
             state.centers.push(action.payload);
         }
     },
-    extraReducers: {
-        [saveCenterDataThunk.pending]: (state) => {
+    extraReducers: (builder) => {
+        builder.addCase(saveCenterDataThunk.fulfilled, (state, { payload }) => {
+            state.centers.push(payload.result);
+            toastr.success("Center saved successfully.");
+            payload.cb();
+        }),
+            builder.addCase(saveCenterDataThunk.pending, (state, { payload }) => {
 
-        },
-        [saveCenterDataThunk.fulfilled]: (state, { payload }) => {
-            state.centers.push(payload);
-        },
-        [saveCenterDataThunk.rejected]: (state) => {
-
-        }
+            }),
+            builder.addCase(saveCenterDataThunk.rejected, (state, action) => {
+                toastr.error("Something went wrong.");
+            })
     }
 });
 
