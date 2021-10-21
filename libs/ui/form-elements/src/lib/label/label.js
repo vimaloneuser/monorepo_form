@@ -1,14 +1,21 @@
 import './Label.module.scss';
-export function Label(props) {
+import {Label } from 'reactstrap';
+
+export function FormLabel(props) {
   return (
     <div>
-      <label
+      {/* <label
         className={props.className}
         for={props.for}
         id={props.id}>
         {props.value}
-      </label>
+      </label> */}
+      <Label
+        className={props.className}
+        for={props.for}
+        id={props.id}>
+        {props.value}</Label>
     </div>
   );
 }
-export default Label;
+export default FormLabel;

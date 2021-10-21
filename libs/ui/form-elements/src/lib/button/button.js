@@ -1,14 +1,15 @@
 import './Button.module.scss';
-export function Button(props) {
+import { Button } from 'reactstrap';
+export function FormButton(props) {
   return (
     <div>
-      <input
+      <Button
         className={props.className}
         id={props.id}
-        type="submit"
-        value={props.value}
-      />
+        type="submit">
+        {props.value}
+      </Button>
     </div>
   );
 }
-export default Button;
+export default FormButton;

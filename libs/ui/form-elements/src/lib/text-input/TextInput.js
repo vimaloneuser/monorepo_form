@@ -1,12 +1,13 @@
 import './TextInput.module.scss';
+import { Input} from 'reactstrap';
+
 export function TextInput(props) {
   return (
     <div>
-      <input
-        className={props.className}
-        type="text"
-        id={props.id}
+      <Input
+        type={props.type}
         name={props.name}
+        id={props.id}
         placeholder={props.placeholder}
       />
     </div>

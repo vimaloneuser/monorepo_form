@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@edutest/app/client-mgmt": ["libs/app/client-mgmt/src/index.js"],
+      "@edutest/app/center-mgmt": ["libs/app/center-mgmt/src/index.js"],
       "@edutest/ui-styles": ["libs/ui/styles/src/index.js"],
       "@edutest/ui/form-elements": ["libs/ui/form-elements/src/index.js"]
     }
